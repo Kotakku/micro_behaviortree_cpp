@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<root main_tree_to_execute="BehaviorTree">
+    <!-- ////////// -->
+    <BehaviorTree ID="BehaviorTree">
+        <Sequence>
+            <Action ID="SayText" text="Hello World!"/>
+            <SubTree ID="MySubTree"/>
+        </Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <BehaviorTree ID="MySubTree">
+        <Sequence>
+            <Action ID="SayText" text="SubTree 1"/>
+            <Action ID="SayText" text="SubTree 2"/>
+        </Sequence>
+    </BehaviorTree>
+    <!-- ////////// -->
+    <TreeNodesModel>
+        <SubTree ID="MySubTree"/>
+        <Action ID="SayText">
+            <input_port default="default_text" name="text"/>
+        </Action>
+    </TreeNodesModel>
+    <!-- ////////// -->
+</root>
