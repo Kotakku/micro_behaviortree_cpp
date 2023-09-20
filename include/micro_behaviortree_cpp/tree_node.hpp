@@ -97,7 +97,7 @@ public:
     }
 
     // blackboardに値を書き込む
-    // {val}のような構文のみ使用する？
+    // {val}のような構文を使用する
     template <typename T>
     void setOutput(const std::string& key, const T& value)
     {
@@ -270,25 +270,6 @@ protected:
     TreeNode::SharedPtr child_node_;
 };
 
-// class ConditionNode : public LeafNode
-// {
-// public:
-//     using SharedPtr = std::shared_ptr<ConditionNode>;
-//     ConditionNode(NodeConfig config) :
-//         LeafNode(config) {}
-
-//     virtual ~ConditionNode() override = default;
-
-//     //Do nothing
-//     virtual void halt() override final
-//     {}
-
-//     virtual NodeType type() const override final
-//     {
-//         return NodeType::CONDITION;
-//     }
-// };
-
 class ActionNodeBase : public LeafNode
 {
 public:
@@ -352,26 +333,6 @@ public:
 };
 
 // simple node implementations
-
-// class SimpleConditionNode : public ConditionNode
-// {
-// public:
-//     typedef std::function<NodeStatus(TreeNode&)> TickFunctor;
-
-//     // You must provide the function to call when tick() is invoked
-//     SimpleConditionNode(NodeConfig config, TickFunctor tick_functor):
-//         ConditionNode(config), tick_functor_(std::move(tick_functor)) {}
-
-//     ~SimpleConditionNode() override = default;
-
-// protected:
-//     virtual NodeStatus tick() override
-//     {
-//         return tick_functor_(*this);
-//     }
-
-//     TickFunctor tick_functor_;
-// };
 
 class SimpleDecoratorNode : public DecoratorNode
 {
