@@ -332,6 +332,25 @@ public:
     virtual void onHalted() = 0;
 };
 
+class ConditionNode : public LeafNode
+{
+public:
+  ConditionNode(const std::string& name, const NodeConfig& config);
+
+  virtual ~ConditionNode() override = default;
+
+  //Do nothing
+  virtual void halt() override final
+  {
+    resetStatus();
+  }
+
+  virtual NodeType type() const override final
+  {
+    return NodeType::CONDITION;
+  }
+};
+
 // simple node implementations
 
 class SimpleDecoratorNode : public DecoratorNode
@@ -385,6 +404,23 @@ protected:
     }
 
     TickFunctor tick_functor_;
+};
+
+class SimpleConditionNode : public ConditionNode
+{
+public:
+  using TickFunctor = std::function<NodeStatus(TreeNode&)>;
+
+  // You must provide the function to call when tick() is invoked
+  SimpleConditionNode(const std::string& name, TickFunctor tick_functor,
+                      const NodeConfig& config);
+
+  ~SimpleConditionNode() override = default;
+
+protected:
+  virtual NodeStatus tick() override;
+
+  TickFunctor tick_functor_;
 };
 
 }

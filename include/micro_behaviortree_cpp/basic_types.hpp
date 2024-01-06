@@ -13,7 +13,7 @@ enum class NodeType
 {
     UNDEFINED = 0,
     ACTION,
-    // CONDITION,
+    CONDITION,
     CONTROL,
     DECORATOR,
     SUBTREE
