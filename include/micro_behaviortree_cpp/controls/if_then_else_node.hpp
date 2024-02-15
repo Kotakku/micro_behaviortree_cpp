@@ -50,13 +50,13 @@ private:
             NodeStatus status = children_nodes_[child_idx_]->executeTick();
             if (status == NodeStatus::RUNNING)
             {
-            return NodeStatus::RUNNING;
+                return NodeStatus::RUNNING;
             }
             else
             {
-            resetChildren();
-            child_idx_ = 0;
-            return status;
+                resetChildren();
+                child_idx_ = 0;
+                return status;
             }
         }
         return NodeStatus::FAILURE;
@@ -68,7 +68,7 @@ private:
         ControlNode::halt();
     }
 
-    size_t child_idx_;
+    size_t child_idx_ = 0;
 };
 
 }
