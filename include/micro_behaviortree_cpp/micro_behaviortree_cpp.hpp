@@ -146,7 +146,7 @@ public:
         return *this;
     }
 
-    Builder& control_end()
+    Builder& end()
     {
         bool is_control_child = (!builder_parent_.empty() && builder_parent_.back().control_node != nullptr);
         assert(is_control_child);
@@ -164,26 +164,26 @@ public:
             {"value", value}}); 
     }
 
-    Builder& control_fallback() { return control<FallbackNode>({}); }
-    Builder& control_if_then_else() { return control<IfThenElseNode>({}); }
-    Builder& control_parallel(int failure_threshold, int success_threshold) 
+    Builder& fallback() { return control<FallbackNode>({}); }
+    Builder& if_then_else() { return control<IfThenElseNode>({}); }
+    Builder& parallel(int failure_threshold, int success_threshold) 
     { 
         return control<ParallelNode>({
             {"failure_threshold", toStr(failure_threshold)}, 
             {"success_threshold", toStr(success_threshold)}}); 
     }
-    Builder& control_reactive_fallback() { return control<ReactiveFallback>({}); }
-    Builder& control_reactive_sequence() { return control<ReactiveSequence>({}); }
-    Builder& control_sequence() { return control<SequenceNode>({}); }
-    Builder& control_sequence_star() { return control<SequenceStarNode>({}); }
-    Builder& control_switch2(const std::string& variable, const std::string& value_1, const std::string& value_2) 
+    Builder& reactive_fallback() { return control<ReactiveFallback>({}); }
+    Builder& reactive_sequence() { return control<ReactiveSequence>({}); }
+    Builder& sequence() { return control<SequenceNode>({}); }
+    Builder& sequence_star() { return control<SequenceStarNode>({}); }
+    Builder& switch2(const std::string& variable, const std::string& value_1, const std::string& value_2) 
     { 
         return control<SwitchNode<2>>({
             {"variable", variable},
             {"value_1", value_1},
             {"value_2", value_2}}); 
     }
-    Builder& control_switch3(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3) 
+    Builder& switch3(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3) 
     { 
         return control<SwitchNode<3>>({
             {"variable", variable},
@@ -191,7 +191,7 @@ public:
             {"value_2", value_2},
             {"value_3", value_3}}); 
     }
-    Builder& control_switch4(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3, const std::string& value_4) 
+    Builder& switch4(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3, const std::string& value_4) 
     { 
         return control<SwitchNode<4>>({
             {"variable", variable},
@@ -200,7 +200,7 @@ public:
             {"value_3", value_3},
             {"value_4", value_4}}); 
     }
-    Builder& control_switch5(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3, const std::string& value_4, const std::string& value_5) 
+    Builder& switch5(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3, const std::string& value_4, const std::string& value_5) 
     { 
         return control<SwitchNode<5>>({
             {"variable", variable},
@@ -210,7 +210,7 @@ public:
             {"value_4", value_4},
             {"value_5", value_5}}); 
     }
-    Builder& control_switch6(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3, const std::string& value_4, const std::string& value_5, const std::string& value_6) 
+    Builder& switch6(const std::string& variable, const std::string& value_1, const std::string& value_2, const std::string& value_3, const std::string& value_4, const std::string& value_5, const std::string& value_6) 
     { 
         return control<SwitchNode<6>>({
             {"variable", variable},
@@ -221,42 +221,42 @@ public:
             {"value_5", value_5},
             {"value_6", value_6}}); 
     }
-    Builder& control_while_do_else() { return control<WhileDoElseNode>({}); }
+    Builder& while_do_else() { return control<WhileDoElseNode>({}); }
 
-    Builder& decorator_blackboard_check_bool(bool value_A, bool value_B, NodeStatus return_on_mismatch) 
+    Builder& blackboard_check_bool(bool value_A, bool value_B, NodeStatus return_on_mismatch) 
     { 
         return decorator<BlackboardPreconditionNode<bool>>({
             {"value_A", toStr(value_A)},
             {"value_B", toStr(value_B)},
             {"return_on_mismatch", toStr(return_on_mismatch)}});
     }
-    Builder& decorator_blackboard_check_int(int value_A, int value_B, NodeStatus return_on_mismatch) 
+    Builder& blackboard_check_int(int value_A, int value_B, NodeStatus return_on_mismatch) 
     { 
         return decorator<BlackboardPreconditionNode<int>>({
             {"value_A", toStr(value_A)},
             {"value_B", toStr(value_B)},
             {"return_on_mismatch", toStr(return_on_mismatch)}});
     }
-    Builder& decorator_blackboard_check_double(double value_A, double value_B, NodeStatus return_on_mismatch) 
+    Builder& blackboard_check_double(double value_A, double value_B, NodeStatus return_on_mismatch) 
     { 
         return decorator<BlackboardPreconditionNode<double>>({
             {"value_A", toStr(value_A)},
             {"value_B", toStr(value_B)},
             {"return_on_mismatch", toStr(return_on_mismatch)}});
     }
-    Builder& decorator_blackboard_check_string(const std::string &value_A, const std::string &value_B, NodeStatus return_on_mismatch) 
+    Builder& blackboard_check_string(const std::string &value_A, const std::string &value_B, NodeStatus return_on_mismatch) 
     { 
         return decorator<BlackboardPreconditionNode<std::string>>({
             {"value_A", value_A},
             {"value_B", value_B},
             {"return_on_mismatch", toStr(return_on_mismatch)}});
     }
-    Builder& decorator_force_failure() { return decorator<ForceFailureNode>({}); }
-    Builder& decorator_force_success() { return decorator<ForceSuccessNode>({}); }
-    Builder& decorator_inverter() { return decorator<InverterNode>({}); }
-    Builder& decorator_keep_running_until_failure() { return decorator<KeepRunningUntilFailureNode>({}); }
-    Builder& decorator_repeat(int num_cycles) { return decorator<RepeatNode>({{"num_cycles", toStr(num_cycles)}}); }
-    Builder& decorator_retry_until_successful(int num_attempts) { return decorator<RetryNode>({{"num_attempts", toStr(num_attempts)}}); }
+    Builder& force_failure() { return decorator<ForceFailureNode>({}); }
+    Builder& force_success() { return decorator<ForceSuccessNode>({}); }
+    Builder& inverter() { return decorator<InverterNode>({}); }
+    Builder& keep_running_until_failure() { return decorator<KeepRunningUntilFailureNode>({}); }
+    Builder& repeat(int num_cycles) { return decorator<RepeatNode>({{"num_cycles", toStr(num_cycles)}}); }
+    Builder& retry_until_successful(int num_attempts) { return decorator<RetryNode>({{"num_attempts", toStr(num_attempts)}}); }
 
     Tree::SharedPtr build()
     {
