@@ -61,11 +61,11 @@ int main()
     BT::Builder builder(bb);
 
     auto tree = builder
-        .control_sequence()
+        .sequence()
             .action<WaitNode>({{"count_num", BT::toStr(5)}})
             
             .action<SayText>({{"text", "Hello World!"}})
-        .control_end()
+        .end()
         .build();
 
     for(size_t i = 0; i < 5; i++)

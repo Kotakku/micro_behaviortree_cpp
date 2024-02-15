@@ -29,27 +29,27 @@ int main()
     builder.registerActionNode<SayText>("SayText");
 
     auto tree = builder
-        .control_sequence()
+        .sequence()
             .action("SayText", {{"text", "Hello World!"}})
             
             .action("SayText", {{"text", "test1"}})
             // if(true) { SayText("True"); } else { SayText("False"); }
-            .control_if_then_else()
+            .if_then_else()
                 .always_success()
                 .action("SayText", {{"text", "True"}})
                 .action("SayText", {{"text", "False"}})
-            .control_end()
+            .end()
 
             .action("SayText", {{"text", "test2"}})
 
             // if(!true) { SayText("True"); } else { SayText("False"); }
-            .control_if_then_else()
-                .decorator_inverter()
+            .if_then_else()
+                .inverter()
                     .always_success()
                 .action("SayText", {{"text", "True"}})
                 .action("SayText", {{"text", "False"}})
-            .control_end()
-        .control_end()
+            .end()
+        .end()
         .build();
 
     tree->rootTick();

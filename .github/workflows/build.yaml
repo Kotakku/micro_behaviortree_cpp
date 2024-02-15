@@ -15,6 +15,6 @@ jobs:
         working-directory: ${{github.workspace}}
         run: |
           JOBS=$(($(grep cpu.cores /proc/cpuinfo | sort -u | sed 's/[^0-9]//g') + 1))
-          cmake -S . -B build -DBUILD_EXAMPLES=OFF
+          cmake -S . -B build -DBUILD_EXAMPLES=ON
           cmake --build build -j${JOBS}
           sudo cmake --install build

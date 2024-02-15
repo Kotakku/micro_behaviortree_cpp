@@ -443,7 +443,7 @@ protected:
                 {
                     control(name, ports);
                     createTree(node, trees);
-                    control_end();
+                    end();
                 }
 
                 if (type == "Decorator")
